@@ -25,7 +25,7 @@ function options() {
 function persist() {
   state = options();
   const ok = state.remember ? PasswordPreferences.save(storage, state) : PasswordPreferences.clear(storage);
-  $('preference-status').textContent = ok ? (state.remember ? 'Preferências salvas neste navegador. Nenhuma senha é salva.' : 'Preferências desativadas. A escolha de não lembrar será mantida.') : 'Este navegador bloqueou o armazenamento. Os ajustes valem só nesta sessão.';
+  $('preference-status').textContent = ok ? (state.remember ? 'Preferências salvas.' : 'Preferências desativadas.') : 'Armazenamento bloqueado. Os ajustes valem só nesta sessão.';
 }
 function renderPassword() {
   password.value = hidden ? '•'.repeat(currentPassword.length) : currentPassword;
@@ -41,6 +41,7 @@ function fail(message) {
   $('entropy').textContent = 'Nenhuma senha gerada';
   $('character-count').textContent = '—';
   status.textContent = message;
+  status.classList.remove('sr-only');
   status.classList.add('error');
 }
 function regenerate(announce = true) {
@@ -55,7 +56,8 @@ function regenerate(announce = true) {
     const bits = Math.floor(words ? PasswordGenerator.phraseEntropy(config) : PasswordGenerator.entropy(config));
     $('entropy').textContent = `${bits} bits de entropia estimada`;
     $('character-count').textContent = `${currentPassword.length} caracteres`;
-    status.textContent = announce ? 'Nova senha gerada. Pronta para copiar.' : 'Pronta para usar. Copie e guarde em um gerenciador de senhas.';
+    status.textContent = announce ? 'Nova senha gerada.' : '';
+    status.classList.add('sr-only');
     status.classList.remove('error');
   } catch (error) { fail(error.message); }
 }
@@ -129,7 +131,8 @@ copy.addEventListener('click', async () => {
     await navigator.clipboard.writeText(value);
     if (revision !== copiedRevision) return;
     copy.querySelector('span').textContent = 'Copiada!';
-    status.textContent = 'Senha copiada. O conteúdo fica na área de transferência do dispositivo.';
+    status.textContent = 'Copiada para a área de transferência.';
+    status.classList.remove('sr-only');
     status.classList.remove('error');
   } catch {
     if (revision !== copiedRevision) return;
@@ -138,6 +141,7 @@ copy.addEventListener('click', async () => {
     password.focus();
     password.select();
     status.textContent = 'Cópia automática indisponível. A senha foi selecionada: use Ctrl+C, ⌘C ou o menu Copiar.';
+    status.classList.remove('sr-only');
   }
 });
 length.value = state.length;
@@ -151,7 +155,7 @@ $('word-count').value = state.wordCount;
 $('separator').value = state.separator;
 $('remember').checked = state.remember;
 $('profile').value = Object.keys(profiles).find(name => profiles[name].length === state.length && keys.every(key => profiles[name][key] === state[key]) && state.excludeSimilar === (name !== 'numbers')) || 'custom';
-$('preference-status').textContent = stored.available ? (state.remember ? 'Ao ajustar, suas preferências serão lembradas neste navegador.' : 'Preferências desativadas.') : 'Armazenamento indisponível. Os ajustes valem só nesta sessão.';
+$('preference-status').textContent = stored.available ? (state.remember ? 'Os ajustes serão lembrados neste navegador.' : 'Preferências desativadas.') : 'Armazenamento indisponível. Os ajustes valem só nesta sessão.';
 renderMode();
 renderTheme();
 regenerate(false);
