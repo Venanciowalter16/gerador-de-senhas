@@ -10,7 +10,9 @@
   <title>Chave — Gerador de senhas</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <script defer src="words.js"></script>
   <script defer src="generator.js"></script>
+  <script defer src="preferences.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -26,7 +28,7 @@
     <section class="generator" aria-label="Gerador de senhas">
       <div class="result">
         <div class="result-top"><label for="password">Sua nova senha</label><button id="visibility" class="text-button" type="button" aria-pressed="false" aria-controls="password">Ocultar</button></div>
-        <input id="password" class="password" type="text" readonly autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="result-note">
+        <textarea id="password" class="password" rows="3" readonly autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="result-note"></textarea>
         <div class="result-meta"><span id="entropy">Calculando…</span><span id="character-count">20 caracteres</span></div>
         <div class="actions">
           <button class="primary" id="copy" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V4H4v12h4"></path></svg><span>Copiar senha</span></button>
@@ -36,6 +38,12 @@
       </div>
       <div class="settings">
         <h2>Faça do seu jeito</h2>
+        <div class="mode-selector" role="group" aria-label="Tipo de senha">
+          <button id="mode-characters" type="button" aria-pressed="true" aria-controls="character-settings">Caracteres</button>
+          <button id="mode-words" type="button" aria-pressed="false" aria-controls="word-settings">Palavras</button>
+        </div>
+        <div id="character-settings">
+        <div class="profile-row"><label for="profile">Perfil rápido</label><select id="profile"><option value="custom">Personalizado</option><option value="standard" selected>Completa · 20 caracteres</option><option value="no-symbols">Sem símbolos · 20 caracteres</option><option value="numbers">Somente números · 12 dígitos</option><option value="long">Senha longa · 32 caracteres</option></select></div>
         <div class="length-heading"><label for="length">Comprimento</label><div class="length-value"><input id="length-number" type="number" min="8" max="64" value="20" aria-label="Comprimento da senha em caracteres"><span>caracteres</span></div></div>
         <input id="length" type="range" min="8" max="64" value="20" aria-label="Comprimento da senha">
         <div class="range-labels" aria-hidden="true"><span>8</span><span>64</span></div>
@@ -48,8 +56,21 @@
         </fieldset>
         <label class="option exclude"><span>Evitar caracteres parecidos<small>Sem I, l, 1, O, o e 0</small></span><input id="exclude-similar" type="checkbox" checked></label>
         <p class="settings-note">Cada tipo selecionado aparece pelo menos uma vez.</p>
+        </div>
+        <div id="word-settings" hidden>
+          <div class="profile-row"><label for="word-count">Quantidade</label><select id="word-count"><option value="6">6 palavras</option><option value="7">7 palavras</option><option value="8">8 palavras</option><option value="9">9 palavras</option><option value="10">10 palavras</option></select></div>
+          <div class="profile-row"><label for="separator">Separador</label><select id="separator"><option value="-">Hífen (-)</option><option value=" ">Espaço</option><option value=".">Ponto (.)</option></select></div>
+          <p class="word-note">Palavras em português, sorteadas independentemente de uma lista de 7.776 entradas. Repetições são possíveis.</p>
+        </div>
       </div>
     </section>
+    <details class="more-options">
+      <summary>Mais opções <span>símbolos e preferências</span></summary>
+      <div class="extra-settings">
+        <div class="symbol-settings" id="symbol-settings"><div class="extra-title"><label for="allowed-symbols">Símbolos permitidos</label><button type="button" id="reset-symbols" class="plain-button">Restaurar todos</button></div><input id="allowed-symbols" type="text" maxlength="24" value="!@#$%^&amp;*()-_=+[]{};:,.?/" autocomplete="off" spellcheck="false" aria-describedby="symbols-help"><p id="symbols-help">Remova os símbolos que o site não aceita. Lista: <span id="symbol-list"></span></p></div>
+        <div><label class="option"><span>Lembrar preferências<small>Comprimento, tipos, palavras e tema. Sem senhas.</small></span><input id="remember" type="checkbox" checked></label><p class="preference-status" id="preference-status" role="status"></p></div>
+      </div>
+    </details>
     <aside class="privacy" aria-label="Privacidade"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"></path><path d="m8 12 3 3 5-6"></path></svg><div><strong>A senha é sua. E fica com você.</strong><p>Sem histórico, sem cadastro e sem envio de senhas. Use uma senha diferente para cada conta.</p></div></aside>
     <noscript><p class="noscript">Ative o JavaScript para gerar senhas no navegador.</p></noscript>
   </main>

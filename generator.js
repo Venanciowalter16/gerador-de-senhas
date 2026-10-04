@@ -9,6 +9,15 @@
   const KEYS = Object.keys(CHARSETS);
   const SIMILAR = /[Il1Oo0]/g;
 
+  function symbolsFor(value = CHARSETS.symbols) {
+    if (typeof value !== 'string' || value.length > CHARSETS.symbols.length || [...value].some(char => !CHARSETS.symbols.includes(char))) {
+      throw new TypeError('Use apenas os símbolos apresentados em Mais opções.');
+    }
+    const symbols = [...new Set(value)].join('');
+    if (!symbols) throw new RangeError('Escolha pelo menos um símbolo ou desative Símbolos.');
+    return symbols;
+  }
+
   function groupsFor(options) {
     if (!options || typeof options !== 'object') throw new TypeError('Configuração inválida.');
     if (!Number.isInteger(options.length) || options.length < 8 || options.length > 64) {
@@ -17,20 +26,23 @@
     for (const key of [...KEYS, 'excludeSimilar']) {
       if (typeof options[key] !== 'boolean') throw new TypeError('Seleção de caracteres inválida.');
     }
-    const groups = KEYS.filter(key => options[key]).map(key =>
-      options.excludeSimilar ? CHARSETS[key].replace(SIMILAR, '') : CHARSETS[key]);
+    const groups = KEYS.filter(key => options[key]).map(key => {
+      const chars = key === 'symbols' ? symbolsFor(options.allowedSymbols) : CHARSETS[key];
+      return options.excludeSimilar ? chars.replace(SIMILAR, '') : chars;
+    });
     if (groups.length === 0) throw new RangeError('Selecione pelo menos um tipo de caractere.');
     return groups;
   }
 
   function randomIndex(max, cryptoProvider = root.crypto) {
-    if (!Number.isInteger(max) || max < 1 || max > 256) throw new RangeError('Intervalo inválido.');
+    if (!Number.isInteger(max) || max < 1 || max > 65536) throw new RangeError('Intervalo inválido.');
     if (!cryptoProvider || typeof cryptoProvider.getRandomValues !== 'function') {
       throw new Error('Este navegador não oferece geração segura. Use um navegador atualizado.');
     }
     // Discard the incomplete interval to avoid modulo bias.
-    const limit = 256 - (256 % max);
-    const bytes = new Uint8Array(1);
+    const range = max <= 256 ? 256 : 4294967296;
+    const limit = range - (range % max);
+    const bytes = max <= 256 ? new Uint8Array(1) : new Uint32Array(1);
     for (let attempt = 0; attempt < 10000; attempt++) {
       cryptoProvider.getRandomValues(bytes);
       if (bytes[0] < limit) return bytes[0] % max;
@@ -68,7 +80,26 @@
     return Math.log2(Number(valid));
   }
 
-  const api = Object.freeze({ generate, entropy, randomIndex, groupsFor, CHARSETS });
+  function phraseOptions(options) {
+    if (!options || !Number.isInteger(options.wordCount) || options.wordCount < 6 || options.wordCount > 10) {
+      throw new RangeError('Escolha entre 6 e 10 palavras.');
+    }
+    if (!['-', ' ', '.'].includes(options.separator)) throw new TypeError('Separador inválido.');
+  }
+
+  function generatePhrase(options, cryptoProvider = root.crypto) {
+    phraseOptions(options);
+    const words = typeof module !== 'undefined' && module.exports ? require('./words.js') : root.PasswordWords;
+    if (!words || words.length !== 7776) throw new Error('A lista de palavras não carregou. Atualize a página.');
+    return Array.from({ length: options.wordCount }, () => words[randomIndex(words.length, cryptoProvider)]).join(options.separator);
+  }
+
+  function phraseEntropy(options) {
+    phraseOptions(options);
+    return options.wordCount * Math.log2(7776);
+  }
+
+  const api = Object.freeze({ generate, entropy, randomIndex, groupsFor, CHARSETS, symbolsFor, generatePhrase, phraseEntropy });
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.PasswordGenerator = api;
 })(globalThis);

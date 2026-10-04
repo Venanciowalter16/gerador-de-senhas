@@ -16,4 +16,4 @@ Gerar senhas de forma moderna e prática para o usuário, com código publicado 
 
 ## Capabilities and Constraints
 
-Escolhas de implementação: geração criptográfica local, comprimento e categorias configuráveis, cópia e interface responsiva. Sem backend ou persistência de senhas. Público presumido: pessoas que precisam gerar uma senha para uma conta.
+Geração criptográfica local, comprimento e categorias configuráveis, cópia e interface responsiva. O usuário solicitou modos com palavras, símbolos permitidos configuráveis, perfis rápidos e preferências lembradas. Paleta azul solicitada. Preferências são persistidas localmente com allowlist; senhas nunca são persistidas. Sem backend. Público presumido: pessoas que precisam gerar uma senha para uma conta.
