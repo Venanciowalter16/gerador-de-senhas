@@ -64,3 +64,5 @@ Os testes cobrem combinações de tipos, comprimentos extremos, caracteres semel
 - `.github/workflows/check.yml`: verificação contínua; não faz deploy.
 
 O site é publicado pelo GitHub Pages a partir da branch `main`, pasta raiz. A publicação usa os arquivos estáticos diretamente, sem Jekyll. Alterações enviadas para `main` iniciam uma nova publicação. A verificação de testes é um workflow separado.
+
+Os arquivos de interface usam um parâmetro `v` em suas referências no HTML para evitar carregar versões antigas do cache após uma publicação. Ao alterar CSS, JavaScript de interface ou favicon, atualize também esse parâmetro no `index.html`.
