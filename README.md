@@ -27,8 +27,8 @@ Abra http://localhost:8080. Não há etapa de build nem necessidade de instalar 
 - Preferências salvas no navegador, com opção para desativar. Nenhuma senha é salva.
 - Opção para excluir `I`, `l`, `1`, `O`, `o` e `0`.
 - Copiar, mostrar/ocultar e gerar outra senha.
-- Entropia estimada a partir do número de senhas possíveis.
-- Tema azul claro ou escuro; preferência de tema também pode ser lembrada.
+- Entropia estimada disponível em **Mais opções**.
+- Temas claro e escuro com base cinza e azul discreto nos controles; preferência de tema também pode ser lembrada.
 - Navegação por teclado, foco visível e respeito à preferência por movimento reduzido.
 
 ## Segurança e limites

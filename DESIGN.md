@@ -6,8 +6,8 @@ Operate: ajustar, gerar e copiar uma senha em uma única tela.
 
 ## Direction
 
-Uma ferramenta de cuidado cotidiano. Azul profundo e fundo claro, resultado com alto contraste, controles em sequência e divisão funcional entre senha e configuração. Paleta azul também no tema escuro. No celular o resultado vem primeiro. Caracteres e palavras são modos alternativos; símbolos e preferências ficam recolhidos em Mais opções para manter a tela compacta.
+Interface compacta e discreta, com superfícies cinza e branco e azul dessaturado restrito a ações, seleção e foco. Tema escuro em grafite, sem grandes blocos azuis. O resultado vem primeiro no celular. Perfis, comprimento e separadores seguem as mesmas colunas de alinhamento. Exemplos óbvios e frases promocionais foram retirados; informações técnicas e preferências ficam em Mais opções.
 
 ## Typography and interaction
 
-Texto de interface usa fontes locais do sistema; senha em monoespaçada para leitura de caracteres. Botões têm verbos explícitos. Erros são anunciados sem anunciar a senha. Movimento limitado à revelação inicial e desativado com prefers-reduced-motion.
+Texto de interface usa fontes locais do sistema; senha em monoespaçada para leitura de caracteres. Botões têm verbos explícitos. Geração é anunciada para leitores de tela sem repetir mensagens visuais; cópia e erros mantêm retorno visível. Senhas não são anunciadas. Foco visível discreto e contrastante, sem animação de entrada.

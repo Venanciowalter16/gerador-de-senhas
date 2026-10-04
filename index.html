@@ -22,58 +22,53 @@
   </header>
   <main>
     <section class="intro" aria-labelledby="title">
-      <h1 id="title">Uma boa senha.<br><span>Um cuidado a mais.</span></h1>
-      <p>Crie uma senha aleatória, do seu jeito.<br>Ela é gerada aqui, no seu navegador.</p>
+      <h1 id="title">Gerador de senhas</h1>
     </section>
     <section class="generator" aria-label="Gerador de senhas">
       <div class="result">
-        <div class="result-top"><label for="password">Sua nova senha</label><button id="visibility" class="text-button" type="button" aria-pressed="false" aria-controls="password">Ocultar</button></div>
+        <div class="result-top"><label for="password">Sua senha</label><button id="visibility" class="text-button" type="button" aria-pressed="false" aria-controls="password">Ocultar</button></div>
         <textarea id="password" class="password" rows="3" readonly autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="result-note"></textarea>
-        <div class="result-meta"><span id="entropy">Calculando…</span><span id="character-count">20 caracteres</span></div>
+        <div class="result-meta"><span id="character-count">20 caracteres</span></div>
         <div class="actions">
           <button class="primary" id="copy" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V4H4v12h4"></path></svg><span>Copiar senha</span></button>
           <button class="secondary" id="generate" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"></path></svg>Gerar outra</button>
         </div>
-        <p id="result-note" class="status" role="status" aria-live="polite">Pronta para usar. Copie e guarde em um gerenciador de senhas.</p>
+        <p id="result-note" class="status sr-only" role="status" aria-live="polite"></p>
       </div>
       <div class="settings">
-        <h2>Faça do seu jeito</h2>
+        <h2 class="sr-only">Configurar senha</h2>
         <div class="mode-selector" role="group" aria-label="Tipo de senha">
           <button id="mode-characters" type="button" aria-pressed="true" aria-controls="character-settings">Caracteres</button>
           <button id="mode-words" type="button" aria-pressed="false" aria-controls="word-settings">Palavras</button>
         </div>
         <div id="character-settings">
-        <div class="profile-row"><label for="profile">Perfil rápido</label><select id="profile"><option value="custom">Personalizado</option><option value="standard" selected>Completa · 20 caracteres</option><option value="no-symbols">Sem símbolos · 20 caracteres</option><option value="numbers">Somente números · 12 dígitos</option><option value="long">Senha longa · 32 caracteres</option></select></div>
-        <div class="length-heading"><label for="length">Comprimento</label><div class="length-value"><input id="length-number" type="number" min="8" max="64" value="20" aria-label="Comprimento da senha em caracteres"><span>caracteres</span></div></div>
-        <input id="length" type="range" min="8" max="64" value="20" aria-label="Comprimento da senha">
-        <div class="range-labels" aria-hidden="true"><span>8</span><span>64</span></div>
+        <div class="profile-row"><label for="profile">Perfil</label><select id="profile"><option value="custom">Personalizado</option><option value="standard" selected>Completa</option><option value="no-symbols">Sem símbolos</option><option value="numbers">Somente números</option><option value="long">Senha longa</option></select></div>
+        <div class="length-row"><label for="length">Comprimento</label><div class="length-control"><input id="length-number" type="number" min="8" max="64" value="20" aria-label="Comprimento da senha em caracteres"><input id="length" type="range" min="8" max="64" value="20" aria-label="Comprimento da senha, de 8 a 64 caracteres"></div></div>
         <fieldset>
-          <legend>Incluir na senha</legend>
-          <label class="option"><span>Maiúsculas <small>A–Z</small></span><input id="uppercase" type="checkbox" checked></label>
-          <label class="option"><span>Minúsculas <small>a–z</small></span><input id="lowercase" type="checkbox" checked></label>
-          <label class="option"><span>Números <small>0–9</small></span><input id="numbers" type="checkbox" checked></label>
-          <label class="option"><span>Símbolos <small>!@#$…</small></span><input id="symbols" type="checkbox" checked></label>
+          <legend class="sr-only">Incluir na senha</legend>
+          <label class="option"><input id="uppercase" type="checkbox" checked><span>Maiúsculas</span></label>
+          <label class="option"><input id="lowercase" type="checkbox" checked><span>Minúsculas</span></label>
+          <label class="option"><input id="numbers" type="checkbox" checked><span>Números</span></label>
+          <label class="option"><input id="symbols" type="checkbox" checked><span>Símbolos</span></label>
         </fieldset>
-        <label class="option exclude"><span>Evitar caracteres parecidos<small>Sem I, l, 1, O, o e 0</small></span><input id="exclude-similar" type="checkbox" checked></label>
-        <p class="settings-note">Cada tipo selecionado aparece pelo menos uma vez.</p>
+        <label class="option exclude" title="Exclui I, l, 1, O, o e 0"><input id="exclude-similar" type="checkbox" checked><span>Evitar caracteres parecidos<small class="sr-only">Exclui I, l, 1, O, o e 0</small></span></label>
         </div>
         <div id="word-settings" hidden>
           <div class="profile-row"><label for="word-count">Quantidade</label><select id="word-count"><option value="6">6 palavras</option><option value="7">7 palavras</option><option value="8">8 palavras</option><option value="9">9 palavras</option><option value="10">10 palavras</option></select></div>
           <div class="profile-row"><label for="separator">Separador</label><select id="separator"><option value="-">Hífen (-)</option><option value=" ">Espaço</option><option value=".">Ponto (.)</option></select></div>
-          <p class="word-note">Palavras em português, sorteadas independentemente de uma lista de 7.776 entradas. Repetições são possíveis.</p>
         </div>
       </div>
     </section>
     <details class="more-options">
-      <summary>Mais opções <span>símbolos e preferências</span></summary>
+      <summary>Mais opções</summary>
       <div class="extra-settings">
         <div class="symbol-settings" id="symbol-settings"><div class="extra-title"><label for="allowed-symbols">Símbolos permitidos</label><button type="button" id="reset-symbols" class="plain-button">Restaurar todos</button></div><input id="allowed-symbols" type="text" maxlength="24" value="!@#$%^&amp;*()-_=+[]{};:,.?/" autocomplete="off" spellcheck="false" aria-describedby="symbols-help"><p id="symbols-help">Remova os símbolos que o site não aceita. Lista: <span id="symbol-list"></span></p></div>
-        <div><label class="option"><span>Lembrar preferências<small>Comprimento, tipos, palavras e tema. Sem senhas.</small></span><input id="remember" type="checkbox" checked></label><p class="preference-status" id="preference-status" role="status"></p></div>
+        <div><label class="option"><input id="remember" type="checkbox" checked><span>Lembrar preferências<small>Somente os ajustes, nunca a senha.</small></span></label><p class="preference-status" id="preference-status" role="status"></p></div>
+        <div class="generation-info"><span id="entropy">Calculando…</span><span>Cada tipo selecionado é incluído. No modo Palavras, o sorteio usa 7.776 palavras em português e pode repetir palavras.</span></div>
       </div>
     </details>
-    <aside class="privacy" aria-label="Privacidade"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"></path><path d="m8 12 3 3 5-6"></path></svg><div><strong>A senha é sua. E fica com você.</strong><p>Sem histórico, sem cadastro e sem envio de senhas. Use uma senha diferente para cada conta.</p></div></aside>
     <noscript><p class="noscript">Ative o JavaScript para gerar senhas no navegador.</p></noscript>
   </main>
-  <footer><span>chave. · simples por escolha.</span><a href="https://github.com/Venanciowalter16/gerador-de-senhas" target="_blank" rel="noopener noreferrer">Ver código no GitHub <span aria-hidden="true">↗</span></a></footer>
+  <footer><span>Gerada no seu navegador. A senha não é salva.</span><a href="https://github.com/Venanciowalter16/gerador-de-senhas" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></footer>
 </body>
 </html>
