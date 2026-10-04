@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gere senhas aleatórias no seu navegador. Ajuste o comprimento, escolha os caracteres e copie em um clique.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="color-scheme" content="light dark">
+  <title>Chave — Gerador de senhas</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="generator.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Chave, início"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="4"></circle><path d="m11 12 9 9m-5-5 3-3m-6 0 3-3"></path></svg>chave<span class="brand-dot">.</span></a>
+    <button class="theme-button" id="theme" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13a8 8 0 0 1-9-9 8 8 0 1 0 9 9Z"></path></svg><span>Tema escuro</span></button>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="title">
+      <h1 id="title">Uma boa senha.<br><span>Um cuidado a mais.</span></h1>
+      <p>Crie uma senha aleatória, do seu jeito.<br>Ela é gerada aqui, no seu navegador.</p>
+    </section>
+    <section class="generator" aria-label="Gerador de senhas">
+      <div class="result">
+        <div class="result-top"><label for="password">Sua nova senha</label><button id="visibility" class="text-button" type="button" aria-pressed="false" aria-controls="password">Ocultar</button></div>
+        <input id="password" class="password" type="text" readonly autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="result-note">
+        <div class="result-meta"><span id="entropy">Calculando…</span><span id="character-count">20 caracteres</span></div>
+        <div class="actions">
+          <button class="primary" id="copy" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V4H4v12h4"></path></svg><span>Copiar senha</span></button>
+          <button class="secondary" id="generate" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"></path></svg>Gerar outra</button>
+        </div>
+        <p id="result-note" class="status" role="status" aria-live="polite">Pronta para usar. Copie e guarde em um gerenciador de senhas.</p>
+      </div>
+      <div class="settings">
+        <h2>Faça do seu jeito</h2>
+        <div class="length-heading"><label for="length">Comprimento</label><div class="length-value"><input id="length-number" type="number" min="8" max="64" value="20" aria-label="Comprimento da senha em caracteres"><span>caracteres</span></div></div>
+        <input id="length" type="range" min="8" max="64" value="20" aria-label="Comprimento da senha">
+        <div class="range-labels" aria-hidden="true"><span>8</span><span>64</span></div>
+        <fieldset>
+          <legend>Incluir na senha</legend>
+          <label class="option"><span>Maiúsculas <small>A–Z</small></span><input id="uppercase" type="checkbox" checked></label>
+          <label class="option"><span>Minúsculas <small>a–z</small></span><input id="lowercase" type="checkbox" checked></label>
+          <label class="option"><span>Números <small>0–9</small></span><input id="numbers" type="checkbox" checked></label>
+          <label class="option"><span>Símbolos <small>!@#$…</small></span><input id="symbols" type="checkbox" checked></label>
+        </fieldset>
+        <label class="option exclude"><span>Evitar caracteres parecidos<small>Sem I, l, 1, O, o e 0</small></span><input id="exclude-similar" type="checkbox" checked></label>
+        <p class="settings-note">Cada tipo selecionado aparece pelo menos uma vez.</p>
+      </div>
+    </section>
+    <aside class="privacy" aria-label="Privacidade"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"></path><path d="m8 12 3 3 5-6"></path></svg><div><strong>A senha é sua. E fica com você.</strong><p>Sem histórico, sem cadastro e sem envio de senhas. Use uma senha diferente para cada conta.</p></div></aside>
+    <noscript><p class="noscript">Ative o JavaScript para gerar senhas no navegador.</p></noscript>
+  </main>
+  <footer><span>chave. · simples por escolha.</span><a href="https://github.com/Venanciowalter16/gerador-de-senhas" target="_blank" rel="noopener noreferrer">Ver código no GitHub <span aria-hidden="true">↗</span></a></footer>
+</body>
+</html>
