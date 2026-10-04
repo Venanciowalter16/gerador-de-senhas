@@ -4,6 +4,8 @@ Um gerador de senhas em português, com interface responsiva, temas claro e escu
 
 ## Usar
 
+**Online:** [abrir o gerador de senhas](https://venanciowalter16.github.io/gerador-de-senhas/).
+
 Baixe o repositório e abra **index.html** em um navegador atualizado. Escolha de 8 a 64 caracteres, ajuste os tipos e clique em **Copiar senha**. Se a cópia automática estiver indisponível, a página seleciona a senha para copiar manualmente.
 
 Também pode servir a pasta localmente, se tiver Python instalado:
@@ -53,4 +55,4 @@ Os testes cobrem todas as combinações de tipos, comprimentos extremos, caracte
 - `tests/`: testes com o runner nativo do Node.js.
 - `.github/workflows/check.yml`: verificação contínua; não faz deploy.
 
-Este repositório não habilita GitHub Pages nem publica um site.
+O site é publicado pelo GitHub Pages a partir da branch `main`, pasta raiz. A publicação usa os arquivos estáticos diretamente, sem Jekyll. Alterações enviadas para `main` iniciam uma nova publicação. A verificação de testes é um workflow separado.
